@@ -7,6 +7,7 @@ const Tempapp =() => {
     const[search, setSearch] = useState("");
 
     useEffect( () => {
+       let timeout=setTimeout(()=>{
       const fetchApi = async () =>{
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=c7de4febdece768b524f1790bf6635b6`;
         const response = await fetch(url)
@@ -15,7 +16,10 @@ const Tempapp =() => {
         setCity(resJson.main);
 
       }
+      
       fetchApi();
+     },600);
+    return ()=> clearTimeout(timeout);
     },[search]);
 
     return(
